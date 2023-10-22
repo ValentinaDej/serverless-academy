@@ -9,7 +9,7 @@
    - Mixed: `apple 492 banana 32 Cherry`
      (Note: Operations targeting words will ignore numbers and vice versa. A value like `492banana` is treated as a word.)
 
-3. **Selecting an Operation**: Choose from the following operations by entering the respective number:
+3. **Selecting an Operation**: Choose from the following operations:
 
    1. Sort words alphabetically
    2. Show numbers from lesser to greater

@@ -1,0 +1,14 @@
+{
+  "name": "01_interactive_sort",
+  "version": "1.0.0",
+  "description": "simple app for interactive sort",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Valentina Dei",
+  "license": "ISC"
+}

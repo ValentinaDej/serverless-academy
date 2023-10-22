@@ -10,13 +10,14 @@
      (Note: Operations targeting words will ignore numbers and vice versa. A value like `492banana` is treated as a word.)
 
 3. **Selecting an Operation**: Choose from the following operations:
-   &nbsp;1. Sort words alphabetically
-   &nbsp;2. Show numbers from lesser to greater
-   &nbsp;3. Show numbers from bigger to smaller
-   &nbsp;4. Display words in ascending order by number of letters in the word
-   &nbsp;5. Show only unique words
-   &nbsp;6. Display only unique values from the set of words and numbers entered by the user
-
+    <ol>
+   <li>Sort words alphabetically</li>
+   <li>Show numbers from lesser to greater</li>
+   <li>Show numbers from bigger to smaller</li>
+   <li>Display words in ascending order by number of letters in the word</li>
+   <li>Show only unique words</li>
+   <li>Display only unique values from the set of words and numbers entered by the user</li>
+   </ol>
 4. **Reiteration**: After executing your chosen operation, the program will present the list of operations again. At this point, input a new string to continue.
 
 To exit the program, enter `exit`.

@@ -10,5 +10,8 @@
   },
   "keywords": [],
   "author": "Valentina Dei",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.11"
+  }
 }

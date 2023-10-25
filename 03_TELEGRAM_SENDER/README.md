@@ -17,4 +17,4 @@ The bot supports the following commands:
 - `node index.js m | message <message>`: Send a message on Telegram.
 - `node index.js p | photo <path_to_photo>`: Send a photo on Telegram. You can add a photo by dragging the file or specifying a URL.
 - `node index.js -h | --help`: Display help information.
-- `node index.js -V`| --version: Display the bot's version.
+- `node index.js -V | --version`: Display the bot's version.

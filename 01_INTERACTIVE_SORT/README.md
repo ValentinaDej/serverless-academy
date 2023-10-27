@@ -2,7 +2,8 @@
 
 ## 1. Starting the App
 
-Execute `npm start`.
+1. Clone the repository.
+2. Execute `npm start`.
 
 ## 2. Inputting Data
 

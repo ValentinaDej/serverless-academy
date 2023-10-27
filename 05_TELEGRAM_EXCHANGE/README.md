@@ -6,7 +6,7 @@
 2. Install the required dependencies by running: `npm install`.
 3. Create a `.env` file in the project directory and define the necessary environment variables (e.g., `BOT_TOKEN` and `OPEN_WEATHER_API_KEY`).
 4. Get OPEN_WEATHER_API_KEY key at [OpenWeatherMap](https://openweathermap.org).
-5. Start bot by running: `env $(cat .env | xargs) node index.js`.
+5. Start bot by running: `npm start`.
 
 **Your Bot is Ready to Go!**
 

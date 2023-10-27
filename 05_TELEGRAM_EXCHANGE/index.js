@@ -1,11 +1,11 @@
 import TelegramBot from "node-telegram-bot-api";
 import { getWeatherForecast } from "./api/getWeatherForecast.js";
+import { getEnvVariables } from "./helpers/getEnvVariables.js";
 import { responceFormatter } from "./helpers/responceFormatter.js";
 import { intervalOptions, mainMenu } from "./interfaces/botMenu.js";
 import { FORECAST_FREQ } from "./constants/index.js";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const OPEN_WEATHER_API_KEY = process.env.OPEN_WEATHER_API_KEY;
 
 process.env["NTBA_FIX_350"] = 1;
 

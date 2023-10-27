@@ -1,8 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import { Command } from "commander";
-import { getEnvVariables } from "./getEnvVariables.js";
 
-getEnvVariables();
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 process.env["NTBA_FIX_350"] = 1;

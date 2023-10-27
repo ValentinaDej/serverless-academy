@@ -9,19 +9,18 @@ const createDatabase = () => {
     fs.mkdirSync(dbDirPath);
   }
 
-  if (!fs.existsSync(filePath)) {
-    try {
-      fs.writeFileSync(filePath, JSON.stringify([]), { encoding: "utf8" });
-      console.log("Database successfully created!");
-    } catch (error) {
-      console.log(`Error creating the database: ${error}`);
-    }
+  try {
+    fs.writeFileSync(filePath, JSON.stringify([]), { encoding: "utf8" });
+    console.log("Database successfully created!");
+  } catch (error) {
+    console.log(`Error creating the database: ${error}`);
   }
 };
 
 const validateDatabaseContent = () => {
   if (!fs.existsSync(filePath)) {
-    return;
+    createDatabase();
+    return true;
   }
 
   const content = fs.readFileSync(filePath, { encoding: "utf8" });
@@ -44,8 +43,6 @@ const validateDatabaseContent = () => {
 };
 
 export const connectToDatabase = () => {
-  createDatabase();
-
   if (!validateDatabaseContent()) {
     process.exit(1);
   }

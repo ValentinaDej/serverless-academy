@@ -29,7 +29,7 @@ const questions = [
     type: "confirm",
     name: "searchMode",
     message: "Would you like to search users in DB?",
-    when: (answers) => !answers.name.trim() && !answers.age.trim(),
+    when: (answers) => !answers.name && !answers.age,
   },
   {
     type: "input",

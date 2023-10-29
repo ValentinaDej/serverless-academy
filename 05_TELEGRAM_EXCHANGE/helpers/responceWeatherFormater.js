@@ -1,15 +1,23 @@
 import { dateFormater, timeFormater } from "./dateFotmater.js";
 import { API_WEATHER } from "../constants/index.js";
+import { badStructureError } from "./errorHandler.js";
 
 const { forecastFreq, weatherDescIcons } = API_WEATHER;
 
 export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
+  if (!weatherData || !weatherData.list || weatherData.list.length === 0) {
+    return badStructureError("weatherData");
+  }
+
   let formattedResponse = "";
   let currentDay = null;
   const step = mode / forecastFreq;
 
   for (let index = 0; index < 24; index += step) {
-    const item = weatherData.list[index];
+    let item = weatherData.list[index];
+    if (!item || !item.dt_txt || !item.main.temp || !item.weather[0].icon) {
+      return badStructureError("weatherItem");
+    }
 
     const date = new Date(item.dt_txt);
     const dayIndex = date.getDate();
@@ -29,6 +37,5 @@ export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
       date
     )}\n`;
   }
-
   return formattedResponse;
 };

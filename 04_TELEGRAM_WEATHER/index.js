@@ -6,13 +6,12 @@ import { API_WEATHER } from "./constants/index.js";
 
 const { forecastFreq } = API_WEATHER;
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const OPEN_WEATHER_API_KEY = process.env.OPEN_WEATHER_API_KEY;
 
 process.env["NTBA_FIX_350"] = 1;
 
-if (!BOT_TOKEN || !OPEN_WEATHER_API_KEY) {
+if (!BOT_TOKEN) {
   console.log(
-    "BOT_TOKEN or CHAT_ID were not successfully loaded from the environment. \n Look at .env.example file and create your  "
+    "BOT_TOKEN was not successfully loaded from the environment. \n Look at .env.example file and create your  "
   );
   process.exit(1);
 }
@@ -41,10 +40,18 @@ bot.on("callback_query", async (btn) => {
     Number(btn.data) === forecastFreq ||
     Number(btn.data) === forecastFreq * 2
   ) {
-    const data = await getWeatherForecast(OPEN_WEATHER_API_KEY);
-    bot.sendMessage(chatId, responceWeatherFormater(data, Number(btn.data)), {
-      parse_mode: "HTML",
-    });
+    const data = await getWeatherForecast();
+    if (data) {
+      const formatedData = responceWeatherFormater(data, Number(btn.data));
+      bot.sendMessage(chatId, formatedData, {
+        parse_mode: "HTML",
+      });
+    } else {
+      bot.sendMessage(
+        chatId,
+        "Something went wrong while updating data. We're working on fixing this. 🛠️"
+      );
+    }
   }
 });
 

@@ -1,7 +1,16 @@
-export const responseExchangeFormatter = (exchangeRates) => {
-  let formattedResponse = "";
+import { badStructureError } from "./errorHandler.js";
 
-  for (const rate of exchangeRates) {
+export const responseExchangeFormatter = (exchangeRates, currency) => {
+  if (!exchangeRates || exchangeRates.length === 0 || !currency) {
+    return badStructureError("exchangeRates");
+  }
+
+  let formattedResponse = "";
+  formattedResponse += `💵 <b>${currency} Exchange Rates</b>\n\n`;
+  for (let rate of exchangeRates) {
+    if (!rate || !rate.bank || !rate.buy || !rate.sale) {
+      return badStructureError("rate");
+    }
     formattedResponse += `🏦 <b>${rate.bank}</b>\n`;
     formattedResponse += `Buying Rate: <b>${rate.buy}</b> UAH\n`;
     formattedResponse += `Selling Rate: <b>${rate.sale}</b> UAH\n\n`;
@@ -9,6 +18,3 @@ export const responseExchangeFormatter = (exchangeRates) => {
 
   return formattedResponse;
 };
-//  const msg = `\n <b>🏦 PrivatBank</b>\n Buying Rate: <b>${buyRate}</b> UAH \n Selling Rate: <b>${saleRate}</b> UAH \n`;
-// const msg = `\n <b>🏦 MonoBank</b>\n Buying Rate: <b>${buyRate}</b> UAH \n Selling Rate: <b>${saleRate}</b> UAH \n`;
-// return msg;

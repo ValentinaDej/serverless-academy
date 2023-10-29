@@ -1,43 +1,60 @@
 import axios from "axios";
+import NodeCache from "node-cache";
 
 import { API_BANK } from "../constants/index.js";
+import { fatchingError } from "../helpers/errorHandler.js";
+
+const cache = new NodeCache();
 
 export const getAllExchangeRates = async (currency) => {
-  try {
-    const exchangeRates = [];
+  const exchangeRates = [];
 
-    for (const bank of API_BANK) {
-      const exchangeRate = await getExchangeRate(bank, currency);
-
+  for (const bank of API_BANK) {
+    const exchangeRate = await getExchangeRate(bank, currency);
+    if (exchangeRate) {
       exchangeRates.push(exchangeRate);
+    } else {
+      return fatchingError(`Details: for API ${bank.bankName}.`);
     }
-
-    return exchangeRates;
-  } catch (error) {
-    console.error("Error fetching exchange rates:", error);
-    throw error;
   }
+
+  return exchangeRates;
 };
 
 const getExchangeRate = async (bank, currency) => {
+  let exchangeRate = null;
   try {
     const { data } = await axios.get(bank.baseUrl);
 
+    let mainCurrency = "UAH";
     if (bank.answerKey.currencyMap) {
       currency = bank.answerKey.currencyMap[currency];
+      mainCurrency = bank.answerKey.currencyMap[mainCurrency];
     }
 
     const filteredData = data.filter(
-      (item) => item[bank.answerKey.currency] === currency
+      (item) =>
+        item[bank.answerKey.currency] === currency &&
+        item[bank.answerKey.mainCurrency] === mainCurrency
     );
 
-    return {
-      bank: bank.bankName,
-      buy: Number(filteredData[0][bank.answerKey.buy]).toFixed(2),
-      sale: Number(filteredData[0][bank.answerKey.sale]).toFixed(2),
-    };
+    if (filteredData.length !== 0) {
+      exchangeRate = {
+        bank: bank.bankName,
+        buy: Number(filteredData[0][bank.answerKey.buy]).toFixed(2),
+        sale: Number(filteredData[0][bank.answerKey.sale]).toFixed(2),
+      };
+      cache.set(bank.bankName, exchangeRate, 1200);
+      return exchangeRate;
+    } else {
+      return fatchingError(`Details: data filtering issue.`);
+    }
   } catch (error) {
-    console.error(`Error fetching exchange rate from ${bank.bankName}:`, error);
-    throw error;
+    const cachedData = cache.get(bank.bankName);
+    if (cachedData) {
+      return cachedData;
+    } else {
+      return fatchingError(error);
+    }
   }
 };

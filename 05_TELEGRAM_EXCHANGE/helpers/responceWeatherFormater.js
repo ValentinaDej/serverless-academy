@@ -6,7 +6,7 @@ const { forecastFreq, weatherDescIcons } = API_WEATHER;
 
 export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
   if (!weatherData.list || weatherData.list.length === 0) {
-    return errorHandler("wrong structure weatherData");
+    return errorHandler("Error: wrong structure weatherData");
   }
 
   let formattedResponse = "";
@@ -16,7 +16,7 @@ export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
   for (let index = 0; index < 24; index += step) {
     let item = weatherData.list[index];
     if (!item || !item.dt_txt || !item.main.temp || !item.weather[0].icon) {
-      return errorHandler("wrong structure weatherItem");
+      return errorHandler("Error: wrong structure weatherItem");
     }
 
     const date = new Date(item.dt_txt);

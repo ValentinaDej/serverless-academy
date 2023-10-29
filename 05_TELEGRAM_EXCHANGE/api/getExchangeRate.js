@@ -14,7 +14,7 @@ export const getAllExchangeRates = async (currency) => {
     if (exchangeRate) {
       exchangeRates.push(exchangeRate);
     } else {
-      return errorHandler(`fetching data for API ${bank.bankName}.`);
+      return errorHandler(`Error: fetching data for API ${bank.bankName}.`);
     }
   }
 
@@ -47,7 +47,7 @@ const getExchangeRate = async (bank, currency) => {
       cache.set(bank.bankName, exchangeRate, 1200);
       return exchangeRate;
     } else {
-      return errorHandler(`data filtering issue.`);
+      return errorHandler(`Error: data filtering issue.`);
     }
   } catch (error) {
     const cachedData = cache.get(bank.bankName);

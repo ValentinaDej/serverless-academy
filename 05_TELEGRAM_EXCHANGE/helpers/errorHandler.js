@@ -1,9 +1,4 @@
-export const badStructureError = (structure) => {
-  console.log(`Error: wrong structure ${structure}`);
+export const errorHandler = (error) => {
+  console.log(`Error: ${error}`);
   return "Something went wrong while updating data. We're working on fixing this. 🛠️";
-};
-
-export const fatchingError = (error) => {
-  console.log(`Error fetching data: ${error}`);
-  return null;
 };

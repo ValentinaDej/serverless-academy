@@ -2,7 +2,7 @@ import axios from "axios";
 import NodeCache from "node-cache";
 
 import { API_BANK } from "../constants/index.js";
-import { fatchingError } from "../helpers/errorHandler.js";
+import { errorHandler } from "../helpers/errorHandler.js";
 
 const cache = new NodeCache();
 
@@ -14,7 +14,7 @@ export const getAllExchangeRates = async (currency) => {
     if (exchangeRate) {
       exchangeRates.push(exchangeRate);
     } else {
-      return fatchingError(`Details: for API ${bank.bankName}.`);
+      return errorHandler(`fetching data for API ${bank.bankName}.`);
     }
   }
 
@@ -47,14 +47,14 @@ const getExchangeRate = async (bank, currency) => {
       cache.set(bank.bankName, exchangeRate, 1200);
       return exchangeRate;
     } else {
-      return fatchingError(`Details: data filtering issue.`);
+      return errorHandler(`data filtering issue.`);
     }
   } catch (error) {
     const cachedData = cache.get(bank.bankName);
     if (cachedData) {
       return cachedData;
     } else {
-      return fatchingError(error);
+      return errorHandler(error);
     }
   }
 };

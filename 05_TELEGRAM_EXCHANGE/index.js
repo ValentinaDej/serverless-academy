@@ -50,14 +50,11 @@ bot.on("callback_query", async (btn) => {
     const data = await getAllExchangeRates(btn.data);
     if (data) {
       const formatedData = responseExchangeFormatter(data, btn.data);
-      await bot.sendMessage(chatId, formatedData, {
-        parse_mode: "HTML",
-      });
-    } else {
-      bot.sendMessage(
-        chatId,
-        "Something went wrong while updating data. We're working on fixing this. 🛠️"
-      );
+      if (formatedData) {
+        await bot.sendMessage(chatId, formatedData, {
+          parse_mode: "HTML",
+        });
+      }
     }
   }
 
@@ -68,25 +65,18 @@ bot.on("callback_query", async (btn) => {
     const data = await getWeatherForecast();
     if (data) {
       const formatedData = responceWeatherFormater(data, Number(btn.data));
-      bot.sendMessage(chatId, formatedData, {
-        parse_mode: "HTML",
-      });
-    } else {
-      bot.sendMessage(
-        chatId,
-        "Something went wrong while updating data. We're working on fixing this. 🛠️"
-      );
+      if (formatedData) {
+        bot.sendMessage(chatId, formatedData, {
+          parse_mode: "HTML",
+        });
+      }
     }
   }
 });
 
 bot.onText(/\/\w+/, function (msg) {
   if (msg.text === "/start") {
-    bot.sendMessage(
-      msg.chat.id,
-      "Choose the city to recive forecast:",
-      mainMenu
-    );
+    bot.sendMessage(msg.chat.id, "Choose the option", mainMenu);
   } else {
     bot.sendMessage(msg.chat.id, "Sorry, I don't understand that command.");
   }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_WEATHER } from "../constants/index.js";
-import { fatchingError } from "../helpers/dateFotmater.js";
+import { errorHandler } from "../helpers/errorHandler.js";
 
 const { baseUrl, city, country } = API_WEATHER;
 const OPEN_WEATHER_API_KEY = process.env.OPEN_WEATHER_API_KEY;
@@ -18,6 +18,6 @@ export const getWeatherForecast = async () => {
     const { data } = await axios.get(url);
     return data;
   } catch (error) {
-    return fatchingError(error);
+    return errorHandler(error);
   }
 };

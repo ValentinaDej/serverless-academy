@@ -43,14 +43,11 @@ bot.on("callback_query", async (btn) => {
     const data = await getWeatherForecast();
     if (data) {
       const formatedData = responceWeatherFormater(data, Number(btn.data));
-      bot.sendMessage(chatId, formatedData, {
-        parse_mode: "HTML",
-      });
-    } else {
-      bot.sendMessage(
-        chatId,
-        "Something went wrong while updating data. We're working on fixing this. 🛠️"
-      );
+      if (formatedData) {
+        bot.sendMessage(chatId, formatedData, {
+          parse_mode: "HTML",
+        });
+      }
     }
   }
 });

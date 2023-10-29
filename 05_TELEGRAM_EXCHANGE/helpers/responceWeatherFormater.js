@@ -1,12 +1,12 @@
 import { dateFormater, timeFormater } from "./dateFotmater.js";
 import { API_WEATHER } from "../constants/index.js";
-import { badStructureError } from "./errorHandler.js";
+import { errorHandler } from "./errorHandler.js";
 
 const { forecastFreq, weatherDescIcons } = API_WEATHER;
 
 export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
-  if (!weatherData || !weatherData.list || weatherData.list.length === 0) {
-    return badStructureError("weatherData");
+  if (!weatherData.list || weatherData.list.length === 0) {
+    return errorHandler("wrong structure weatherData");
   }
 
   let formattedResponse = "";
@@ -16,7 +16,7 @@ export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
   for (let index = 0; index < 24; index += step) {
     let item = weatherData.list[index];
     if (!item || !item.dt_txt || !item.main.temp || !item.weather[0].icon) {
-      return badStructureError("weatherItem");
+      return errorHandler("wrong structure weatherItem");
     }
 
     const date = new Date(item.dt_txt);

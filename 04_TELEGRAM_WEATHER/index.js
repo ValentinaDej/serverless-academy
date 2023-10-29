@@ -24,7 +24,7 @@ bot.on("callback_query", async (btn) => {
 
   if (!chatId) return;
 
-  if (btn.data === "click") {
+  if (btn.data === "forecast") {
     await bot.sendMessage(chatId, "Select the interval:", intervalOptions);
   }
 
@@ -44,9 +44,6 @@ bot.on("callback_query", async (btn) => {
     const data = await getWeatherForecast(OPEN_WEATHER_API_KEY);
     bot.sendMessage(chatId, responceWeatherFormater(data, Number(btn.data)), {
       parse_mode: "HTML",
-      reply_markup: {
-        remove_keyboard: true,
-      },
     });
   }
 });

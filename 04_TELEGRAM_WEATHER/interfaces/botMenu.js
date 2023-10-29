@@ -5,7 +5,7 @@ const { forecastFreq, city } = API_WEATHER;
 export const mainMenu = {
   reply_markup: {
     inline_keyboard: [
-      [{ text: `Forecast in ${city}`, callback_data: "click" }],
+      [{ text: `Forecast in ${city}`, callback_data: "forecast" }],
       [{ text: "Exit", callback_data: "exit" }],
     ],
     one_time_keyboard: true,

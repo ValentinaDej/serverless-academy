@@ -1,10 +1,12 @@
 import { dateFormater, timeFormater } from "./dateFotmater.js";
-import { FORECAST_FREQ, WEATHER_DESC_ICON } from "../constants/index.js";
+import { API_WEATHER } from "../constants/index.js";
 
-export const responceFormatter = (weatherData, mode = FORECAST_FREQ) => {
+const { forecastFreq, weatherDescIcons } = API_WEATHER;
+
+export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
   let formattedResponse = "";
   let currentDay = null;
-  const step = mode / FORECAST_FREQ;
+  const step = mode / forecastFreq;
 
   for (let index = 0; index < 24; index += step) {
     const item = weatherData.list[index];
@@ -21,7 +23,7 @@ export const responceFormatter = (weatherData, mode = FORECAST_FREQ) => {
       temperature.toString().length < 2 ? `  ${temperature}` : temperature;
 
     const iconCode = item.weather[0].icon.slice(0, 2);
-    const weatherEmoji = WEATHER_DESC_ICON[iconCode] || "🌥️";
+    const weatherEmoji = weatherDescIcons[iconCode] || "🌥️";
 
     formattedResponse += `🌡  <b>${temperatureText}</b>°C  ${weatherEmoji}  ${timeFormater(
       date

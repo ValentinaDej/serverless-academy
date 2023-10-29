@@ -1,9 +1,10 @@
 import TelegramBot from "node-telegram-bot-api";
 import { getWeatherForecast } from "./api/getWeatherForecast.js";
-import { responceFormatter } from "./helpers/responceFormatter.js";
+import { responceWeatherFormater } from "./helpers/responceWeatherFormater.js";
 import { intervalOptions, mainMenu } from "./interfaces/botMenu.js";
-import { FORECAST_FREQ } from "./constants/index.js";
+import { API_WEATHER } from "./constants/index.js";
 
+const { forecastFreq } = API_WEATHER;
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const OPEN_WEATHER_API_KEY = process.env.OPEN_WEATHER_API_KEY;
 
@@ -37,11 +38,11 @@ bot.on("callback_query", async (btn) => {
   }
 
   if (
-    Number(btn.data) === FORECAST_FREQ ||
-    Number(btn.data) === FORECAST_FREQ * 2
+    Number(btn.data) === forecastFreq ||
+    Number(btn.data) === forecastFreq * 2
   ) {
     const data = await getWeatherForecast(OPEN_WEATHER_API_KEY);
-    bot.sendMessage(chatId, responceFormatter(data, Number(btn.data)), {
+    bot.sendMessage(chatId, responceWeatherFormater(data, Number(btn.data)), {
       parse_mode: "HTML",
       reply_markup: {
         remove_keyboard: true,

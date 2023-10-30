@@ -15,3 +15,6 @@ export const API_WEATHER = {
     50: "😶‍🌫️",
   },
 };
+
+export const USER_ERROR_MSG =
+  "Something went wrong while updating data. We're working on fixing this. 🛠️";

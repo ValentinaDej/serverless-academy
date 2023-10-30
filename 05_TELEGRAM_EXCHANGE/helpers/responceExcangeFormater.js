@@ -1,11 +1,6 @@
 import { errorHandler } from "./errorHandler.js";
-import { USER_ERROR_MSG } from "../constants/index.js";
 
 export const responseExchangeFormatter = (exchangeRates, currency) => {
-  if ((exchangeRates = USER_ERROR_MSG)) {
-    return;
-  }
-
   if (exchangeRates.length === 0 || !currency) {
     return errorHandler("Error: wrong structure exchangeRates.");
   }

@@ -1,14 +1,10 @@
 import { dateFormater, timeFormater } from "./dateFotmater.js";
-import { API_WEATHER, USER_ERROR_MSG } from "../constants/index.js";
+import { API_WEATHER } from "../constants/index.js";
 import { errorHandler } from "./errorHandler.js";
 
 const { forecastFreq, weatherDescIcons } = API_WEATHER;
 
 export const responceWeatherFormater = (weatherData, mode = forecastFreq) => {
-  if ((weatherData = USER_ERROR_MSG)) {
-    return;
-  }
-
   if (!weatherData.list || weatherData.list.length === 0) {
     return errorHandler("Error: wrong structure weatherData");
   }

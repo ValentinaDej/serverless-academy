@@ -23,14 +23,21 @@ export const getAllExchangeRates = async (currency) => {
 
 const getExchangeRate = async (bank, currency) => {
   let exchangeRate = null;
+
+  let mainCurrency = "UAH";
+  if (bank.answerKey.currencyMap) {
+    currency = bank.answerKey.currencyMap[currency];
+    mainCurrency = bank.answerKey.currencyMap[mainCurrency];
+  }
+
+  const cacheKey = `${bank.bankName}-${currency}`;
+  const cachedData = cache.get(cacheKey);
+  if (cachedData) {
+    return cachedData;
+  }
+
   try {
     const { data } = await axios.get(bank.baseUrl);
-
-    let mainCurrency = "UAH";
-    if (bank.answerKey.currencyMap) {
-      currency = bank.answerKey.currencyMap[currency];
-      mainCurrency = bank.answerKey.currencyMap[mainCurrency];
-    }
 
     const filteredData = data.filter(
       (item) =>
@@ -44,17 +51,12 @@ const getExchangeRate = async (bank, currency) => {
         buy: Number(filteredData[0][bank.answerKey.buy]).toFixed(2),
         sale: Number(filteredData[0][bank.answerKey.sale]).toFixed(2),
       };
-      cache.set(bank.bankName, exchangeRate, 1200);
+      cache.set(cacheKey, exchangeRate, 60);
       return exchangeRate;
     } else {
       return errorHandler(`Error: data filtering issue.`);
     }
   } catch (error) {
-    const cachedData = cache.get(bank.bankName);
-    if (cachedData) {
-      return cachedData;
-    } else {
-      return errorHandler(error);
-    }
+    return errorHandler(error);
   }
 };

@@ -2,9 +2,8 @@
 
 **Getting Started**
 
-1. Clone the repository containing the bot's code.
-2. Install the required dependencies by running: `npm install`.
-3. Start by running: `npm start`.
+1. Clone the repository.
+2. Start by running: `npm start`.
 
 **Functions**
 The program provides three functions to answer specific questions:

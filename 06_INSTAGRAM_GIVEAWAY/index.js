@@ -3,38 +3,42 @@ const fsp = fs.promises;
 import path from "path";
 
 const directoryPath = "./data";
-let fileNames;
 
-(() => {
-  const allFiles = fs.readdirSync(directoryPath);
-  const directoryContents = [];
-
-  for (const fileName of allFiles) {
-    const filePath = path.join(directoryPath, fileName);
-    directoryContents.push(filePath);
-  }
-
-  fileNames = directoryContents;
-})();
-
-async function readFileAsync(fileName, encoding = "utf8") {
+const getFiles = async () => {
   try {
-    return await fsp.readFile(fileName, encoding);
-  } catch (error) {
-    console.error(`Error reading file ${fileName}: ${error.message}`);
-    return "";
-  }
-}
+    const allFiles = await fsp.readdir(directoryPath);
+    const directoryContents = await Promise.all(
+      allFiles.map((fileName) => path.join(directoryPath, fileName))
+    );
 
-async function uniqueValues() {
-  const start = new Date();
-  const fileContents = await Promise.all(
-    fileNames.map(async (fileName) => {
-      const file = await readFileAsync(fileName);
-      return file;
+    if (directoryContents.length === 0) {
+      console.error(`Error: Directory ${directoryPath} is empty`);
+      process.exit(1);
+    }
+    return directoryContents;
+  } catch (error) {
+    console.error(`Error reading directory ${directoryPath}: ${error.message}`);
+    process.exit(1);
+  }
+};
+
+const getFilesContent = async () => {
+  const directoryContents = await getFiles();
+
+  const fileContent = await Promise.all(
+    directoryContents.map(async (fileName) => {
+      try {
+        return await fsp.readFile(fileName, "utf8");
+      } catch (error) {
+        console.error(`Error reading file ${fileName}: ${error.message}`);
+        return "";
+      }
     })
   );
+  return fileContent;
+};
 
+async function uniqueValues(fileContents) {
   const uniqueValues = new Set();
   fileContents.forEach((fileContent) => {
     const lines = fileContent.split("\n");
@@ -43,52 +47,32 @@ async function uniqueValues() {
     });
   });
 
-  console.log(`Unique values: ${uniqueValues.size}`);
-  console.log(`1st task duration: ${(new Date() - start) / 1000} s`);
+  return uniqueValues.size;
 }
 
-async function existInAllFiles() {
-  const start = new Date();
+async function existInAllFiles(fileContents) {
+  const commonEntries = new Set(fileContents[0].split("\n"));
 
-  const fileEntriesArrays = await Promise.all(
-    fileNames.map(async (fileName) => {
-      const file = await readFileAsync(fileName);
-      const fileEntries = new Set(file.split("\n"));
-      return fileEntries;
-    })
-  );
-
-  let commonEntries = fileEntriesArrays[0];
-
-  for (let i = 1; i < fileEntriesArrays.length; i++) {
-    commonEntries = new Set(
-      [...commonEntries].filter((entry) => fileEntriesArrays[i].has(entry))
-    );
+  for (let i = 1; i < fileContents.length; i++) {
+    const fileEntries = new Set(fileContents[i].split("\n"));
+    commonEntries.forEach((entry) => {
+      if (!fileEntries.has(entry)) {
+        commonEntries.delete(entry);
+      }
+    });
   }
 
-  console.log(`Values that are in each file: ${commonEntries.size}`);
-  console.log(`2nd task duration: ${(new Date() - start) / 1000} s`);
+  return commonEntries.size;
 }
 
-async function existInAtleastTen() {
-  const start = new Date();
-
-  const fileEntriesArrays = await Promise.all(
-    fileNames.map(async (fileName) => {
-      const file = await readFileAsync(fileName);
-      const fileEntries = new Set(file.split("\n"));
-      return fileEntries;
-    })
-  );
-
+async function existInAtleastTen(fileContents) {
   const entryCounts = new Map();
 
-  for (const fileEntries of fileEntriesArrays) {
-    for (const entry of fileEntries) {
-      const count = entryCounts.get(entry) || 0;
-      if (count < 10) {
-        entryCounts.set(entry, count + 1);
-      }
+  for (const fileContent of fileContents) {
+    const uniqueLines = new Set(fileContent.split("\n"));
+
+    for (const line of uniqueLines) {
+      entryCounts.set(line, (entryCounts.get(line) || 0) + 1);
     }
   }
 
@@ -96,12 +80,28 @@ async function existInAtleastTen() {
     ([entry, count]) => count >= 10
   );
 
-  console.log(
-    `Values that are in at least 10 files: ${entriesInAtLeast10Files.length}`
-  );
-  console.log(`3rd task duration: ${(new Date() - start) / 1000} s`);
+  return entriesInAtLeast10Files.length;
 }
 
-await uniqueValues();
-await existInAllFiles();
-await existInAtleastTen();
+async function resultProcessing(name, task, data) {
+  const start = new Date();
+  try {
+    const result = await task(data);
+    console.log(
+      `${name}: ${result} - duration: ${(new Date() - start) / 1000} s`
+    );
+  } catch (error) {
+    console.error(`${name} failed: ${error.message}`);
+  }
+}
+
+(async () => {
+  const fileContents = await getFilesContent();
+  await resultProcessing("Unique values", uniqueValues, fileContents);
+  await resultProcessing("Values in each file", existInAllFiles, fileContents);
+  await resultProcessing(
+    "Values in at least 10 files",
+    existInAtleastTen,
+    fileContents
+  );
+})();

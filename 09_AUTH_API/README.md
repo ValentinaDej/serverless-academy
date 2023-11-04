@@ -8,4 +8,5 @@
 4. Run the built image by executing: `docker-compose up`
 
 **API documentation**
+
 You can find all necessary information at [API DOCS](https://auth-api-docs.learning.serverless.direct/)

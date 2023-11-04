@@ -1,4 +1,4 @@
-import * as db from "../db.js";
+import * as db from "../../db.js";
 
 export const tableExistHandler = async (tableName) => {
   const { rows } = await db.query(

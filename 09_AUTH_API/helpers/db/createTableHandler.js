@@ -1,4 +1,4 @@
-import * as db from "../db.js";
+import * as db from "../../db.js";
 
 export const createTableHandler = async (tableName, fields) => {
   const client = await db.pool.connect();

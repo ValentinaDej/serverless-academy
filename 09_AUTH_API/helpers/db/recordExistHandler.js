@@ -1,6 +1,6 @@
 import * as db from "../../db.js";
 
-export const recordExistHandler = async (tableName, searchParams) => {
+const recordExistHandler = async (tableName, searchParams) => {
   const queryParams = searchParams.map((param) => param.value);
   const searchConditions = searchParams
     .map((param, index) => {
@@ -13,3 +13,5 @@ export const recordExistHandler = async (tableName, searchParams) => {
 
   return data.rows[0];
 };
+
+export default recordExistHandler;

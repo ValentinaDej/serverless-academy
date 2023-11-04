@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { verifyAccessTokenFromHeaders } from "../middleware/verifyAccessTokenFromHeaders.js";
-import { getMe } from "../actions/getMe.js";
+import authMiddleware from "../middleware/authMiddleware.js";
+import * as action from "../actions/userAction.js";
 
 const router = Router();
-router.get("/", verifyAccessTokenFromHeaders, getMe);
+router.get("/", authMiddleware, action.getMe);
+router.post("/refresh", action.refresh);
 
 export default router;

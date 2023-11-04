@@ -1,6 +1,6 @@
-import { ERROR_STATUS_CODE } from "../../constants/errorStatusCode.js";
+import ERROR_STATUS_CODE from "../constants/errorStatusCode.js";
 
-export const errorHandler = (code, err) => {
+const errorHandler = (code, err) => {
   if (err) {
     console.log(`Error: ${err}`);
   }
@@ -15,3 +15,5 @@ export const errorHandler = (code, err) => {
     result: { error: errorMsg },
   };
 };
+
+export default errorHandler;

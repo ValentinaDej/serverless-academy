@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+
 import mountRoutes from "./routes/index.js";
+import errorHandler from "./helpers/errorHandler.js";
 
 dotenv.config();
 
@@ -20,7 +22,7 @@ const start = async () => {
       console.log(`Server started on port: ${process.env.PORT || 5050}`)
     );
   } catch (error) {
-    console.log(error);
+    errorHandler(500, error);
   }
 };
 

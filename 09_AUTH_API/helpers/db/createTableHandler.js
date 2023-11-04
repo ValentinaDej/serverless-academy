@@ -1,6 +1,6 @@
 import * as db from "../../db.js";
 
-export const createTableHandler = async (tableName, fields) => {
+const createTableHandler = async (tableName, fields) => {
   const client = await db.pool.connect();
   try {
     await client.query("BEGIN");
@@ -17,3 +17,5 @@ export const createTableHandler = async (tableName, fields) => {
     client.release();
   }
 };
+
+export default createTableHandler;

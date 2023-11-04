@@ -1,11 +1,10 @@
 import { Router } from "express";
 
-import { signUp } from "../actions/signUp.js";
-import { signIn } from "../actions/signIn.js";
+import * as action from "../actions/userAction.js";
 
 const router = Router();
-router.post("/sign-in", signIn);
+router.post("/sign-in", action.signIn);
 //new user
-router.post("/sign-up", signUp);
+router.post("/sign-up", action.signUp);
 
 export default router;

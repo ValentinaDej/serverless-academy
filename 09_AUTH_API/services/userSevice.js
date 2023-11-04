@@ -1,10 +1,10 @@
-import bcrypt from "bcryptjs";
 import * as db from "../db.js";
-import { generateTokens } from "../services/tokenService.js";
-import { createTableHandler } from "../helpers/db/createTableHandler.js";
-import { tableExistHandler } from "../helpers/db/tableExistHandler.js";
-import { recordExistHandler } from "../helpers/db/recordExistHandler.js";
-import { errorHandler } from "../helpers/error/errorHandler.js";
+import * as tokenHandler from "../helpers/tokenHandler.js";
+import * as passwordHandler from "../helpers/passwordHandler.js";
+import createTableHandler from "../helpers/db/createTableHandler.js";
+import tableExistHandler from "../helpers/db/tableExistHandler.js";
+import recordExistHandler from "../helpers/db/recordExistHandler.js";
+import errorHandler from "../helpers/errorHandler.js";
 
 const createUserTable = async () => {
   try {
@@ -20,6 +20,10 @@ const createUserTable = async () => {
 };
 
 export const registration = async (email, password) => {
+  if (!email || !password) {
+    return errorHandler(422);
+  }
+
   const tableExist = await tableExistHandler("users");
 
   if (!tableExist) {
@@ -36,7 +40,7 @@ export const registration = async (email, password) => {
 
   const client = await db.pool.connect();
   try {
-    const hashPassword = bcrypt.hashSync(password, 10);
+    const hashPassword = passwordHandler.hashPassword(password);
     await client.query("BEGIN");
 
     const { rows } = await client.query(
@@ -45,7 +49,7 @@ export const registration = async (email, password) => {
     );
 
     const userId = rows[0].id;
-    let tokens = generateTokens({ userId, email });
+    let tokens = tokenHandler.generateTokens({ userId, email });
 
     if (tokens.refreshToken) {
       await client.query(
@@ -85,6 +89,12 @@ export const login = async (email, password) => {
     return errorHandler(422);
   }
 
+  const tableExist = await tableExistHandler("users");
+
+  if (!tableExist) {
+    return errorHandler(400, "Relation 'public.users' does not exist");
+  }
+
   const recordExist = await recordExistHandler("public.users", [
     { name: "email", value: email },
   ]);
@@ -95,14 +105,18 @@ export const login = async (email, password) => {
 
   const { id, password: hashPassword } = recordExist;
 
-  const passwordCompared = await bcrypt.compare(password, hashPassword);
+  const passwordCompared = passwordHandler.comparePassword(
+    password,
+    hashPassword
+  );
+
   if (!passwordCompared) {
     return errorHandler(401);
   }
 
-  const tokens = generateTokens({ id, email });
+  const tokens = tokenHandler.generateTokens({ id, email });
   if (!tokens.refreshToken) {
-    return errorHandler(400, "Unable to generate refreshToken");
+    return errorHandler(401);
   }
 
   try {
@@ -132,6 +146,12 @@ export const getCurrentUser = async (id) => {
     return errorHandler(401);
   }
 
+  const tableExist = await tableExistHandler("users");
+
+  if (!tableExist) {
+    return errorHandler(400, "Relation 'public.users' does not exist");
+  }
+
   const recordExist = await recordExistHandler("public.users", [
     { name: "id", value: id },
   ]);
@@ -150,4 +170,53 @@ export const getCurrentUser = async (id) => {
       },
     },
   };
+};
+
+export const refreshToken = async (refreshToken) => {
+  if (!refreshToken) {
+    return errorHandler(401);
+  }
+
+  const data = tokenHandler.validRefreshToken(refreshToken);
+  if (!data) {
+    return errorHandler(401);
+  }
+
+  const recordExist = await recordExistHandler("public.users", [
+    { name: "refresh_token", value: refreshToken },
+    { name: "id", value: data.id },
+  ]);
+
+  if (!recordExist) {
+    return errorHandler(401);
+  }
+
+  const { id, email } = recordExist;
+
+  const tokens = tokenHandler.generateTokens({ id, email });
+
+  if (!tokens.refreshToken) {
+    return errorHandler(401);
+  }
+
+  try {
+    await db.query("UPDATE public.users SET refresh_token = $2 WHERE id = $1", [
+      id,
+      tokens.refreshToken,
+    ]);
+
+    return {
+      status: 200,
+      success: true,
+      result: {
+        data: {
+          id,
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken,
+        },
+      },
+    };
+  } catch (error) {
+    return errorHandler(400, error);
+  }
 };

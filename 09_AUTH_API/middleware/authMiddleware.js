@@ -3,7 +3,7 @@ import ERROR_STATUS_CODE from "../constants/errorStatusCode.js";
 
 const authMiddleware = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
-  const errorMsg = { success: false, error: ERROR_STATUS_CODE[401] };
+  const errorMsg = { success: false, message: ERROR_STATUS_CODE[401] };
 
   if (!token) {
     return res.status(401).send(errorMsg);

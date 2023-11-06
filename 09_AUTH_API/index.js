@@ -12,6 +12,15 @@ app.use(cookieParser());
 
 mountRoutes(app);
 
+app.use((req, res, next) => {
+  res.status(404).json({ error: "Rout not found" });
+});
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
+});
+
 const start = async () => {
   try {
     app.listen(process.env.PORT || 5050, () =>

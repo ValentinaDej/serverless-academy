@@ -11,5 +11,5 @@
 
 1. Look in the console to check the port on which the server is running.
 2. Make a POST request to http://localhost:3000/:fileName to save your data.
-3. Provide body in JSON format/
+3. Provide body in JSON format.
 4. Make a GET request to http://localhost:3000/:fileName to get your data.

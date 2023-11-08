@@ -5,7 +5,7 @@ import TokenService from "./tokenService.js";
 import errorHandler from "../helpers/errorHandler.js";
 
 class UserService {
-  async createUserTable() {
+  async #createUserTable() {
     try {
       await DBSecvice.createTable("users", [
         "id UUID PRIMARY KEY DEFAULT uuid_generate_v4()",
@@ -26,7 +26,7 @@ class UserService {
     const tableExist = await DBSecvice.tableExist("users");
 
     if (!tableExist) {
-      createUserTable();
+      this.#createUserTable();
     }
 
     const recordExist = await DBSecvice.recordExist("public.users", [

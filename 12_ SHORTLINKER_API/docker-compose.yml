@@ -1,0 +1,27 @@
+version: "3.5"
+services:
+  main:
+    container_name: mainShotlinker
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - 3001:3001
+      - 5001:5001
+    command: npm start
+    depends_on:
+      - postgres
+    restart: always
+  postgres:
+    container_name: postgreslinker
+    image: postgres:16.0-alpine3.18
+    env_file:
+      - .env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      - PG_DATA=/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always

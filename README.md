@@ -1,5 +1,5 @@
 # Serverless ShortLinker
-Serverless ShortLinker is a cloud-based link shortening tool on AWS. It offers link creation and management, along with analytics and link expiration settings.
+This is a cloud-based link shortening tool on AWS. It offers link creation and management, along with analytics and link expiration settings.
 
 <br>
 

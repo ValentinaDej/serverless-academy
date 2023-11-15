@@ -1,5 +1,4 @@
-#🌐 Serverless ShortLinker
-
+# Serverless ShortLinker
 Serverless ShortLinker is a cloud-based link shortening tool on AWS. It offers link creation and management, along with analytics and link expiration settings.
 
 <br>
@@ -8,7 +7,7 @@ Serverless ShortLinker is a cloud-based link shortening tool on AWS. It offers l
 1. Install Node.js and npm from [Node.js official website](https://nodejs.org/).
 2. Install Serverless Framework: `npm install -g serverless`.
 3. Create an AWS account: [AWS signup](https://portal.aws.amazon.com/billing/signup).
-   
+
 <br>
 
 **🔑 AWS Configuration:**

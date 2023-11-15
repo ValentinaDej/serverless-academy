@@ -9,19 +9,19 @@ Serverless ShortLinker is a cloud-based link shortening tool on AWS. It offers l
 3. Create an AWS account: [AWS signup](https://portal.aws.amazon.com/billing/signup).
 
 **🔑 AWS Configuration:**
-4. Create an IAM User with Administrator Access. Guide: [AWS IAM Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
-5. Verify email/domain in Amazon SES. Guide: [SES Guide](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html).
+1. Create an IAM User with Administrator Access. Guide: [AWS IAM Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
+2. Verify email/domain in Amazon SES. Guide: [SES Guide](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html).
 
 **📁 Project Setup:**
-6. Clone the repository: `git clone <repo-url>` and navigate: `cd <repo-name>`.
-7. Create a `.env` file from `env.example` and set `SENDER_EMAIL` to your verified SES email.
-8. Open `serverless.yml`, note `org` and `app`, login to Serverless Dashboard: `npx serverless login`, and align settings.
-9. Configure AWS credentials: `aws configure` using credentials from step 4.
+1. Clone the repository: `git clone <repo-url>` and navigate: `cd <repo-name>`.
+2. Create a `.env` file from `env.example` and set `SENDER_EMAIL` to your verified SES email.
+3. Open `serverless.yml`, note `org` and `app`, login to Serverless Dashboard: `npx serverless login`, and align settings.
+4. Configure AWS credentials: `aws configure` using credentials from step 4.
 
 **🚀 Deployment:**
-10. Install project dependencies: `npm i`.
-11. Build the project: `npm run build`.
-12. Deploy to AWS: `npx sls deploy`.
+1. Install project dependencies: `npm i`.
+2. Build the project: `npm run build`.
+3. Deploy to AWS: `npx sls deploy`.
 
 **🎉 Conclusion:**
 Your project is now operational on AWS. Begin API testing and further actions.

@@ -19,8 +19,12 @@ This is a cloud-based link shortening tool on AWS. It offers link creation and m
 **📁 Project Setup:**
 1. Clone the repository: `git clone <repo-url>` and navigate: `cd <repo-name>`.
 2. Create a `.env` file from `env.example` and set `SENDER_EMAIL` to your verified SES email.
-3. Open `serverless.yml`, note `org` and `app`, login to Serverless Dashboard: `npx serverless login`, and align settings.
-4. Configure AWS credentials: `aws configure` using credentials from step 4.
+3. Open the `serverless.yml` file in your project directory. Note the values of `org` and `app` specified in this file.
+4. If needed, execute `npx serverless login` in your terminal to log in to the Serverless Dashboard. This step is necessary if you haven't authenticated with the Serverless Dashboard before.
+5. Run `npx serverless dashboard` in your terminal to open the Serverless Dashboard in your web browser.
+6. In the Serverless Dashboard, create a new project with a name matching the `app` value from `serverless.yml`.
+7. Ensure that the `org` value in your project settings matches the `org` value in the `serverless.yml` file.
+8. Configure AWS credentials: `aws configure` using credentials from step 4.
 
 <br>
 

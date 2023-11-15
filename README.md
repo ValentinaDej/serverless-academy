@@ -32,4 +32,5 @@ This is a cloud-based link shortening tool on AWS. It offers link creation and m
 <br>
 
 **🎉 Conclusion:**
-Your project is now operational on AWS. Begin API testing and further actions.
+
+Now project is ready to operate on AWS. You can start testing its API and perform other necessary actions.

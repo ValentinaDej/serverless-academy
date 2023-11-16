@@ -1,0 +1,167 @@
+org: valentinadei
+app: shortlinker
+service: shortlinker
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    QUEUE_URL: ${construct:jobs.queueUrl}
+    HOST_URL:
+      {
+        "Fn::Join":
+          [
+            "",
+            [
+              "https://",
+              { "Ref": "ApiGatewayRestApi" },
+              ".execute-api.${aws:region}.amazonaws.com/${sls:stage}",
+            ],
+          ],
+      }
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:BatchWriteItem
+          Resource:
+            - Fn::GetAtt: [UsersTable, Arn]
+            - Fn::GetAtt: [LinksTable, Arn]
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+            - sqs:SendMessage
+            - sqs:SendMessageBatch
+          Resource: "*"
+
+functions:
+  authorize:
+    handler: build/functions/authorize.handler
+
+  signUp:
+    handler: build/functions/api/auth/signUp.handler
+    events:
+      - http:
+          path: auth/sign-up
+          method: post
+          documentation: ${file(doc/signUp.yml)}
+
+  signIn:
+    handler: build/functions/api/auth/signIn.handler
+    events:
+      - http:
+          path: auth/sign-in
+          method: post
+          documentation: ${file(doc/signIn.yml)}
+
+  addLink:
+    handler: build/functions/api/link/addLink.handler
+    events:
+      - http:
+          path: link/add
+          method: post
+          authorizer:
+            name: authorize
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+          documentation: ${file(doc/addLink.yml)}
+
+  getLinksByEmail:
+    handler: build/functions/api/link/getLinksByEmail.handler
+    events:
+      - http:
+          path: links
+          method: get
+          authorizer:
+            name: authorize
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+          documentation: ${file(doc/getLinksByEmail.yml)}
+
+  deactivateLinkById:
+    handler: build/functions/api/link/deactivateLinkById.handler
+    events:
+      - http:
+          path: link/deactivate/{id}
+          method: post
+          authorizer:
+            name: authorize
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+          documentation: ${file(doc/deactivateLinkById.yml)}
+
+  redirectLink:
+    handler: build/functions/api/link/redirectLink.handler
+    events:
+      - http:
+          path: /{id}
+          method: get
+          authorizer:
+            name: authorize
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+          documentation: ${file(doc/redirectLink.yml)}
+
+  deactivateLinksByCron:
+    handler: build/functions/api/link/deactivateLinksByCron.handler
+    events:
+      - schedule: rate(2 minutes)
+
+  publisher:
+    handler: build/functions/api/email/publisher.handler
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Users
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    LinksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Links
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: email
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+
+constructs:
+  jobs:
+    type: queue
+    worker:
+      handler: build/functions/api/email/worker.handler
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-lift
+  - serverless-openapi-documentation
+
+custom:
+  documentation: ${file(doc/serverless.doc.yml):documentation}

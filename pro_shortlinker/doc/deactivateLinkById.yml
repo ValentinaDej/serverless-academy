@@ -1,0 +1,25 @@
+summary: "Deactivate Link by ID"
+description: "Deactivates a specific link based on its ID."
+security:
+  - bearerAuth: []
+pathParams:
+  - name: "id"
+    description: "The id for a short link"
+    schema:
+      type: "string"
+methodResponses:
+  - statusCode: 200
+    responseBody:
+      description: "Successful deactivation of the link."
+    responseModels:
+      application/json: DeactivateLinkResponse
+  - statusCode: 400
+    responseBody:
+      description: "Bad Request."
+    responseModels:
+      application/json: BadRequestResponse
+  - statusCode: 500
+    responseBody:
+      description: "Internal Server Error."
+    responseModels:
+      application/json: ErrorResponse

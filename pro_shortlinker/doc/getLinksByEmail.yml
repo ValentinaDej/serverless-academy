@@ -1,0 +1,20 @@
+summary: "Get Links by Email"
+description: "Retrieves a list of links associated with the user's email."
+security:
+  - bearerAuth: []
+methodResponses:
+  - statusCode: 200
+    responseBody:
+      description: "A list of links associated with the user's email."
+    responseModels:
+      application/json: LinksByEmailResponse
+  - statusCode: 400
+    responseBody:
+      description: "Bad Request."
+    responseModels:
+      application/json: BadRequestResponse
+  - statusCode: 500
+    responseBody:
+      description: "Internal Server Error."
+    responseModels:
+      application/json: ErrorResponse

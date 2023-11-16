@@ -1,0 +1,285 @@
+openapi: 3.0.0
+components:
+  schemas:
+    SignUpResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    SignUpRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          pattern: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$'
+          description: Email address with standard format. Must match regex pattern.
+        password:
+          type: string
+          minLength: 8
+          maxLength: 20
+          description: Password with a length between 8 and 20 characters.
+    SignInRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          description: User's email address for signing in.
+        password:
+          type: string
+          description: User's password for signing in.
+    SignInResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    AddLinkRequest:
+      type: object
+      required:
+        - link
+        - expiration_time
+      properties:
+        link:
+          type: string
+          description: >-
+            The original URL to be shortened. Must start with 'http://' or
+            'https://'.
+        expiration_time:
+          type: string
+          description: >-
+            Expiration time for the link. Must be one of the predefined time
+            formats - one-time, 1d, 3d or 7d.
+    AddLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        original:
+          type: string
+        short:
+          type: string
+    RedirectLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the link that was deactivated.
+        email:
+          type: string
+          description: The email associated with the deactivated link.
+    LinksByEmailResponse:
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              link:
+                type: string
+              short:
+                type: string
+              expiration_time:
+                type: string
+    DeactivateLinkResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the link that was deactivated.
+        email:
+          type: string
+          description: The email associated with the deactivated link.
+    RedirectResponse:
+      type: object
+      properties:
+        link:
+          type: string
+        expiration_time:
+          type: string
+    BadRequestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    NotFoundResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+  securitySchemes: {}
+info:
+  title: OpenAPI
+  description: API docs for Shortlinker Service
+  version: 1.0.0.0
+paths:
+  /auth/sign-up:
+    post:
+      operationId: signUp
+      summary: Create User
+      description: Creates a new user and sends an email with a generated password.
+      responses:
+        '201':
+          description: A user object along with generated API keys.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignUpResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '500':
+          description: Server error when creating a new user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /auth/sign-in:
+    post:
+      operationId: signIn
+      summary: Log In
+      description: Authenticates a user with their email and password.
+      responses:
+        '200':
+          description: Successful authentication with user data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /link/add:
+    post:
+      operationId: addLink
+      summary: Add Link
+      description: Creates a new shortened link with an expiration time.
+      responses:
+        '200':
+          description: Successful response with the details of the shortened link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddLinkResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /links:
+    get:
+      operationId: getLinksByEmail
+      summary: Get Links by Email
+      description: Retrieves a list of links associated with the user's email.
+      responses:
+        '200':
+          description: A list of links associated with the user's email.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinksByEmailResponse'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '/link/deactivate/{id}':
+    post:
+      operationId: deactivateLinkById
+      summary: Deactivate Link by ID
+      description: Deactivates a specific link based on its ID.
+      responses:
+        '200':
+          description: Successful deactivation of the link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeactivateLinkResponse'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '//{id}':
+    get:
+      operationId: redirectLink
+      summary: Redirect to Original Link
+      description: >-
+        Redirects the user to the original link based on the provided shortened
+        link ID.
+      responses:
+        '200':
+          description: Redirect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectResponse'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

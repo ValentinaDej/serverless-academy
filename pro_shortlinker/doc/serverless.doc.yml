@@ -1,0 +1,171 @@
+documentation:
+  version: "1.0.0.0"
+  title: "OpenAPI"
+  description: "API docs for Shortlinker Service"
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: "For accessing the protected routes, a valid JWT token must be passed in the header."
+
+  models:
+    - name: SignUpResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          accessToken:
+            type: string
+          refreshToken:
+            type: string
+
+    - name: SignUpRequest
+      contentType: "application/json"
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            pattern: "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"
+            description: "Email address with standard format. Must match regex pattern."
+          password:
+            type: string
+            minLength: 8
+            maxLength: 20
+            description: "Password with a length between 8 and 20 characters."
+
+    - name: SignInRequest
+      contentType: "application/json"
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            description: "User's email address for signing in."
+          password:
+            type: string
+            description: "User's password for signing in."
+
+    - name: SignInResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          accessToken:
+            type: string
+          refreshToken:
+            type: string
+
+    - name: AddLinkRequest
+      contentType: "application/json"
+      schema:
+        type: object
+        required:
+          - link
+          - expiration_time
+        properties:
+          link:
+            type: string
+            description: "The original URL to be shortened. Must start with 'http://' or 'https://'."
+          expiration_time:
+            type: string
+            description: "Expiration time for the link. Must be one of the predefined time formats - one-time, 1d, 3d or 7d."
+
+    - name: AddLinkResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+          original:
+            type: string
+          short:
+            type: string
+
+    - name: RedirectLinkResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          id:
+            type: string
+            description: "The ID of the link that was deactivated."
+          email:
+            type: string
+            description: "The email associated with the deactivated link."
+
+    - name: LinksByEmailResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          links:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                link:
+                  type: string
+                short:
+                  type: string
+                expiration_time:
+                  type: string
+
+    - name: DeactivateLinkResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          id:
+            type: string
+            description: "The ID of the link that was deactivated."
+          email:
+            type: string
+            description: "The email associated with the deactivated link."
+
+    - name: RedirectResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          link:
+            type: string
+          expiration_time:
+            type: string
+
+    - name: BadRequestResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+
+    - name: NotFoundResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+
+    - name: ErrorResponse
+      contentType: "application/json"
+      schema:
+        type: object
+        properties:
+          message:
+            type: string

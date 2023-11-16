@@ -65,3 +65,9 @@ Now project is ready to operate on AWS. You can start testing its API and perfor
   - **`helpers/`**: Utilities and helper functions.
   - **`constants/`**: Constants and templates.
   - **`index.ts`**: AWS configiration.
+
+## Generating Documentation
+
+Run `npm run doc` to generate documentation for the project.
+You can use **`openAPI.yml`** to acquaint yourself with the API and perform testing on platforms such as [SwaggerEditor](https://editor.swagger.io/).
+

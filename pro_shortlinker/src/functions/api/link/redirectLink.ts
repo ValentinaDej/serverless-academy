@@ -11,6 +11,13 @@ export const handler = handlerWrapper(
       handlerError.throwError(400, "Bad Request: Missing id in pathParameters");
     }
 
+    if (id.length !== LinkService.SHORT_PATH_LENGTH) {
+      handlerError.throwError(
+        400,
+        "Bad Request: Provide correct pathParameters"
+      );
+    }
+
     const email = JSON.parse(event?.requestContext?.authorizer?.stringKey);
     const data = await LinkService.getLinkById(id, email);
 

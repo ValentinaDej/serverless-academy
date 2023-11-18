@@ -9,7 +9,7 @@ type ExpTimeKey = keyof typeof EXP_TIME;
 class LinkService {
   private URL_CHARACTERS =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
-  private SHORT_PATH_LENGTH = 6;
+  SHORT_PATH_LENGTH = 6;
 
   private shuffleString = (str: string) => {
     const chars = str.split("");

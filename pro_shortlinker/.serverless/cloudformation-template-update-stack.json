@@ -382,7 +382,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_authorize.handler",
         "Runtime": "nodejs18.x",
@@ -429,7 +429,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_signUp.handler",
         "Runtime": "nodejs18.x",
@@ -476,7 +476,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_signIn.handler",
         "Runtime": "nodejs18.x",
@@ -523,7 +523,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_addLink.handler",
         "Runtime": "nodejs18.x",
@@ -570,7 +570,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_getLinksByEmail.handler",
         "Runtime": "nodejs18.x",
@@ -617,7 +617,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_deactivateLinkById.handler",
         "Runtime": "nodejs18.x",
@@ -664,7 +664,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_redirectLink.handler",
         "Runtime": "nodejs18.x",
@@ -711,7 +711,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_deactivateLinksByCron.handler",
         "Runtime": "nodejs18.x",
@@ -758,7 +758,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_publisher.handler",
         "Runtime": "nodejs18.x",
@@ -805,7 +805,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/shortlinker.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/shortlinker.zip"
         },
         "Handler": "s_jobsWorker.handler",
         "Runtime": "nodejs18.x",
@@ -845,104 +845,104 @@
         "JobsWorkerLogGroup"
       ]
     },
-    "AuthorizeLambdaVersionOScC4hrGduG7hibvwqzMV9FrhBMRjjFunBgr6RiFtY": {
+    "AuthorizeLambdaVersionpoBlyfuzqt8QLZQz84qJ63cHYHQmzykymW8t4ga88g": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AuthorizeLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "SignUpLambdaVersionLVd4FOg7YHIwAoC6B9w5HLAb9XfYxrPqyjtZMWzI": {
+    "SignUpLambdaVersion5dM3xESbzMX9p8iZ1dDxUFmMlZpHdNiYod7lNyAQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SignUpLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "SignInLambdaVersionKUkg3eu50uNNnnHjQMWbFTBkP5rUtB1zbYbEQwdag": {
+    "SignInLambdaVersionWcdEq64qLf67y97AMVwXjSXCkZRUfVbEHFtENerSbw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SignInLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "AddLinkLambdaVersiontv1tmZ76Qu5GpacGQDJ1AxtRyAn6wkjBEIaenei5DkQ": {
+    "AddLinkLambdaVersion3wBGzFMKo5W8BJHsPIXNHvotQ6AGDBuz8fYoQLAQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AddLinkLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "GetLinksByEmailLambdaVersionjq83T2Yc6PQTRS5HY7SrGVjLZUTpaahouMR9Y2qvqQo": {
+    "GetLinksByEmailLambdaVersionrhW4nWLCuqAvnqhs58fJtdsbVGXQ5xwaMuWa3z8Uus": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetLinksByEmailLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "DeactivateLinkByIdLambdaVersiongV8lAkOIK3ZMH6ApVZWkCd5HpMsIM7iG5qdqD0BEhM": {
+    "DeactivateLinkByIdLambdaVersionCiluCEuL53pwYHU4J1SaNbof8zVV1NP0tdQ2Xwcps": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DeactivateLinkByIdLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "RedirectLinkLambdaVersion64bBGpdrTqXz175R7jPFXwhYYXohlMXZVKdrRqS0d8": {
+    "RedirectLinkLambdaVersionzMfimIFc6tDvgvkp4wuPWVs1KH0ZPHwIQR6Zts": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "RedirectLinkLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "DeactivateLinksByCronLambdaVersionpZ2I37SS4fP6DYqjvPe4ZmOCtUxMMfEBLpacBBGgL8": {
+    "DeactivateLinksByCronLambdaVersionWk2EtiGAWOof3wuj40Sp2q8fUZVLt5R78FiVvnlxTpw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DeactivateLinksByCronLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "PublisherLambdaVersion5wT2oIEkfslhkDLtDl92MyFJwLtNBPZh1UgoqkBV4o": {
+    "PublisherLambdaVersionvyJqo9kxAjye4ucf1osGffwLI3lK8wd6bpSaVlvLM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "PublisherLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
-    "JobsWorkerLambdaVersionOYizKD1wMLcG0e2YcEmRQ2ct82r5kfARBTYHmIZb2L0": {
+    "JobsWorkerLambdaVersionbro7FGeQBrI0DkcvWdsKcZsfEwR1zlsdr5I6pH9PhHI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "JobsWorkerLambdaFunction"
         },
-        "CodeSha256": "MIXh+jhk9abl6Y5539VT3Ry/bDqoF9XC8zQjmaDddgI="
+        "CodeSha256": "CjppxcaYrNVbZ+SRli8jKvfzcvPQ4LEfLAWtYnTgcds="
       }
     },
     "DeactivateLinksByCronEventsRuleSchedule1": {
@@ -1540,7 +1540,7 @@
         "Type": "TOKEN"
       }
     },
-    "ApiGatewayDeployment1700310191612": {
+    "ApiGatewayDeployment1700319954134": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -1925,7 +1925,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/shortlinker/dev/1700310200192-2023-11-18T12:23:20.192Z/custom-resources.zip"
+          "S3Key": "serverless/shortlinker/dev/1700319962607-2023-11-18T15:06:02.607Z/custom-resources.zip"
         },
         "FunctionName": "shortlinker-dev-custom-resource-apigw-cw-role",
         "Handler": "api-gateway-cloud-watch-role/handler.handler",
@@ -2066,7 +2066,7 @@
     "AuthorizeLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AuthorizeLambdaVersionOScC4hrGduG7hibvwqzMV9FrhBMRjjFunBgr6RiFtY"
+        "Ref": "AuthorizeLambdaVersionpoBlyfuzqt8QLZQz84qJ63cHYHQmzykymW8t4ga88g"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-AuthorizeLambdaFunctionQualifiedArn"
@@ -2075,7 +2075,7 @@
     "SignUpLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SignUpLambdaVersionLVd4FOg7YHIwAoC6B9w5HLAb9XfYxrPqyjtZMWzI"
+        "Ref": "SignUpLambdaVersion5dM3xESbzMX9p8iZ1dDxUFmMlZpHdNiYod7lNyAQ"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-SignUpLambdaFunctionQualifiedArn"
@@ -2084,7 +2084,7 @@
     "SignInLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SignInLambdaVersionKUkg3eu50uNNnnHjQMWbFTBkP5rUtB1zbYbEQwdag"
+        "Ref": "SignInLambdaVersionWcdEq64qLf67y97AMVwXjSXCkZRUfVbEHFtENerSbw"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-SignInLambdaFunctionQualifiedArn"
@@ -2093,7 +2093,7 @@
     "AddLinkLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AddLinkLambdaVersiontv1tmZ76Qu5GpacGQDJ1AxtRyAn6wkjBEIaenei5DkQ"
+        "Ref": "AddLinkLambdaVersion3wBGzFMKo5W8BJHsPIXNHvotQ6AGDBuz8fYoQLAQ"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-AddLinkLambdaFunctionQualifiedArn"
@@ -2102,7 +2102,7 @@
     "GetLinksByEmailLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetLinksByEmailLambdaVersionjq83T2Yc6PQTRS5HY7SrGVjLZUTpaahouMR9Y2qvqQo"
+        "Ref": "GetLinksByEmailLambdaVersionrhW4nWLCuqAvnqhs58fJtdsbVGXQ5xwaMuWa3z8Uus"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-GetLinksByEmailLambdaFunctionQualifiedArn"
@@ -2111,7 +2111,7 @@
     "DeactivateLinkByIdLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DeactivateLinkByIdLambdaVersiongV8lAkOIK3ZMH6ApVZWkCd5HpMsIM7iG5qdqD0BEhM"
+        "Ref": "DeactivateLinkByIdLambdaVersionCiluCEuL53pwYHU4J1SaNbof8zVV1NP0tdQ2Xwcps"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-DeactivateLinkByIdLambdaFunctionQualifiedArn"
@@ -2120,7 +2120,7 @@
     "RedirectLinkLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "RedirectLinkLambdaVersion64bBGpdrTqXz175R7jPFXwhYYXohlMXZVKdrRqS0d8"
+        "Ref": "RedirectLinkLambdaVersionzMfimIFc6tDvgvkp4wuPWVs1KH0ZPHwIQR6Zts"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-RedirectLinkLambdaFunctionQualifiedArn"
@@ -2129,7 +2129,7 @@
     "DeactivateLinksByCronLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DeactivateLinksByCronLambdaVersionpZ2I37SS4fP6DYqjvPe4ZmOCtUxMMfEBLpacBBGgL8"
+        "Ref": "DeactivateLinksByCronLambdaVersionWk2EtiGAWOof3wuj40Sp2q8fUZVLt5R78FiVvnlxTpw"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-DeactivateLinksByCronLambdaFunctionQualifiedArn"
@@ -2138,7 +2138,7 @@
     "PublisherLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "PublisherLambdaVersion5wT2oIEkfslhkDLtDl92MyFJwLtNBPZh1UgoqkBV4o"
+        "Ref": "PublisherLambdaVersionvyJqo9kxAjye4ucf1osGffwLI3lK8wd6bpSaVlvLM"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-PublisherLambdaFunctionQualifiedArn"
@@ -2147,7 +2147,7 @@
     "JobsWorkerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "JobsWorkerLambdaVersionOYizKD1wMLcG0e2YcEmRQ2ct82r5kfARBTYHmIZb2L0"
+        "Ref": "JobsWorkerLambdaVersionbro7FGeQBrI0DkcvWdsKcZsfEwR1zlsdr5I6pH9PhHI"
       },
       "Export": {
         "Name": "sls-shortlinker-dev-JobsWorkerLambdaFunctionQualifiedArn"

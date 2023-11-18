@@ -115,6 +115,9 @@ functions:
       - http:
           path: link/deactivate/{id}
           method: post
+          parameters:
+            paths:
+              id: true
           authorizer:
             name: authorize
             resultTtlInSeconds: 0
@@ -128,6 +131,9 @@ functions:
       - http:
           path: /{id}
           method: get
+          parameters:
+            paths:
+              id: true
           authorizer:
             name: authorize
             resultTtlInSeconds: 0

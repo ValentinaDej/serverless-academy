@@ -60,6 +60,8 @@ Now project is ready to operate on AWS. You can start testing its API and perfor
 
 - **`/doc`**: Project documentation.
 
+- **`/models`**: Request validation in API Gateway.
+
 - **`/src`**: Main project directory.
   - **`types/`**: TypeScript type definitions.
   - **`functions/`**: AWS Lambda functions.

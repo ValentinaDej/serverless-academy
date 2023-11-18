@@ -1,0 +1,17 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": ["link", "expiration_time"],
+  "properties": {
+    "link": {
+      "type": "string",
+      "pattern": "^http.*"
+    },
+    "expiration_time": {
+      "type": "string",
+      "enum": ["one-time", "1d", "3d", "7d"]
+    }
+  }
+}

@@ -42,6 +42,17 @@ provider:
             - sqs:SendMessage
             - sqs:SendMessageBatch
           Resource: "*"
+  apiGateway:
+    request:
+      schemas:
+        UserModel:
+          name: UserModel
+          schema: ${file(models/userRequest.json)}
+          description: "Validation model for Users"
+        LinkModel:
+          name: LinkModel
+          schema: ${file(models/linkRequest.json)}
+          description: "Validation model for Links"
 
 functions:
   authorize:
@@ -53,6 +64,9 @@ functions:
       - http:
           path: auth/sign-up
           method: post
+          request:
+            schemas:
+              application/json: UserModel
           documentation: ${file(doc/signUp.yml)}
 
   signIn:
@@ -61,6 +75,9 @@ functions:
       - http:
           path: auth/sign-in
           method: post
+          request:
+            schemas:
+              application/json: UserModel
           documentation: ${file(doc/signIn.yml)}
 
   addLink:
@@ -69,6 +86,9 @@ functions:
       - http:
           path: link/add
           method: post
+          request:
+            schemas:
+              application/json: LinkModel
           authorizer:
             name: authorize
             resultTtlInSeconds: 0

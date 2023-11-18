@@ -1,5 +1,4 @@
 import LinkService from "../../../services/linkService";
-import ValidationService from "../../../services/validationService";
 import handlerError from "../../../helpers/handlerError";
 import handlerWrapper from "../../../helpers/handlerWrapper";
 
@@ -17,8 +16,6 @@ export const handler = handlerWrapper(async (event) => {
       "Bad Request: Missing link or expiration_time"
     );
   }
-  ValidationService.isValidTime(expiration_time);
-  ValidationService.isValidLink(link);
 
   const email = JSON.parse(event?.requestContext?.authorizer?.stringKey);
 
